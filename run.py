@@ -1,6 +1,8 @@
 from src import create_app
+from dotenv import load_dotenv
+import os
 
-
+load_dotenv()
 """
     Production -> config.Production
     Development -> config.Development
