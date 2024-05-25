@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-24 19:19+0000\n"
+"POT-Creation-Date: 2024-05-25 23:38+0330\n"
 "PO-Revision-Date: 2024-05-24 19:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,4 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
+
+#~ msgid "user.create.duplicate"
+#~ msgstr "the username or email already exists"
+
+#~ msgid "user.create.success"
+#~ msgstr "The user was created successfully."
+
+#~ msgid "error.server.internal"
+#~ msgstr "internal server error"
+
+#~ msgid "login.wrong_credential"
+#~ msgstr "username or password is wrong"
+
+#~ msgid "Ad.create.success"
+#~ msgstr "Advertisment has been created successfully"
+
+#~ msgid "user.create.nullInput"
+#~ msgstr "The username or email must be set"
 
