@@ -1,8 +1,6 @@
 from marshmallow import validates, ValidationError
-from marshmallow.fields import Email, String, Int, DateTime, Field
 from marshmallow_sqlalchemy import auto_field
 from src.extensions import ma
-from datetime import datetime
 from src.models.user import User
 
 
@@ -29,7 +27,6 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
             raise ValidationError('Username must be at least 3 characters long.')
 
 
-
-
-
-    
+class LoginSchema(UserSchema):
+    class Meta:
+        exclude = ('email',)

@@ -35,8 +35,16 @@ class User(BaseModel):
     def create_password(password):
         hashed_password = bcrypt.generate_password_hash(password=password).decode('utf-8')
         return hashed_password
-
-
+    
+    @classmethod
+    def login(cls, args):
+        filter_query = (cls.username == args['username'])
+        user = cls.query.filter(filter_query).one_or_none()
+        
+        if user and bcrypt.check_password_hash(user.password, args['password']):
+            return { "username" : user.username}
+        return None
+        
     
 
     def __repr__(self) -> str:
