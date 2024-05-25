@@ -22,11 +22,15 @@ def create_app(config):
     #Models
     from src.models.base import BaseModel
     from src.models.user import User
+    from src.models.advertisement import AdvertisementModel
+    from src.models.comment import CommentModel
 
 
     #Blueprints
     from src.blueprints.users.view import blueprint as users_blueprint
+    from src.blueprints.advertisements.view import blueprint as advertisements_blueprint
     api.register_blueprint(users_blueprint)
+    api.register_blueprint(advertisements_blueprint)
     
 
     return app
