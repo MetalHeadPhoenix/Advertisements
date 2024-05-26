@@ -28,7 +28,7 @@ class AdvertisementModel(BaseModel):
     @classmethod
     def read_list(cls, args):
         list_of_ads = db.session.execute(
-            select(cls.publisher, cls.created_at, cls.id, cls.content, cls.imageURL, cls.title)
+            select(cls.user_id, cls.created_at, cls.id, cls.content, cls.imageURL, cls.title)
             .order_by(cls.created_at.desc())
             .limit(args['page']*10))
         
@@ -36,8 +36,11 @@ class AdvertisementModel(BaseModel):
         return result
 
     @classmethod
-    def read():
-        pass
+    def get_by_id(cls, id):
+        advertisement = cls.query.filter_by(id=id).first()
+        if advertisement is not None:
+            return advertisement
+        return {'msg':gettext('advertisement.not_found')}, 404
 
     @classmethod
     def update(cls, args):

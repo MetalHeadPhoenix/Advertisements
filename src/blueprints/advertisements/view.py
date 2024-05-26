@@ -12,7 +12,7 @@ blueprint = Blueprint('advertisements', __name__, url_prefix='/advertisements')
 @blueprint.route('')
 class AdvertisementView(MethodView):
     @blueprint.arguments(RequestGetAdsSchema, location="query")
-    @blueprint.response(200, GeneralResponseSchema(many=True))
+    @blueprint.response(200, AdvertisementSchema(many=True))
     def get(self, args):
         """Show advertisement with pagination"""
         ads = AdvertisementModel.read_list(args)
@@ -42,3 +42,22 @@ class AdvertisementView(MethodView):
         """Update advertisement"""
         AdvertisementModel.update(args)
         return {'msg': 'the advertisement updated successfully'}
+    
+
+@blueprint.route('/<id>')
+class AdvertisementView(MethodView):
+    
+    @blueprint.response(200, AdvertisementSchema)
+    @blueprint.response(404, GeneralResponseSchema)
+    def get(self, id):
+        """Show advertisement by id"""
+        ads = AdvertisementModel.get_by_id(id)
+        return ads
+    
+
+    @blueprint.arguments(AdvertisementSchema, location='json')
+    @blueprint.response(404, GeneralResponseSchema)
+    def post(self, id):
+        """Update advertisement by id"""
+        pass
+
