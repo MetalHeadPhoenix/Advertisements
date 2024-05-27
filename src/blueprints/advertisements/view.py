@@ -2,7 +2,9 @@ from flask_smorest import Blueprint
 from flask.views import MethodView
 from src.schemas.advertisement import RequestGetAdsSchema, ResponseGetAdsSchema, AdvertisementSchema, RequestDeleteSchema, RequestUpdateSchema
 from src.schemas.general import GeneralResponseSchema
+from src.schemas.comment import CommentSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from src.models.comment import CommentModel
 
 from src.models.advertisement import AdvertisementModel
 
@@ -61,3 +63,22 @@ class AdvertisementView(MethodView):
         """Update advertisement by id"""
         pass
 
+@blueprint.route('/<id>/comment')
+class AdvertisementView(MethodView):
+    
+    @blueprint.response(200, AdvertisementSchema)
+    @blueprint.response(404, CommentSchema(many=True))
+    def get(self, id):
+        """Show comments by advertisement id"""
+        comments = CommentModel.get_by_id(id)
+        return comments
+    
+    @jwt_required()
+    @blueprint.arguments(CommentSchema, location='json')
+    @blueprint.response(200, AdvertisementSchema)
+    @blueprint.response(404, GeneralResponseSchema)
+    def post(self, args, id):
+        """Create comment by advertisement id"""
+        user_id = get_jwt_identity()
+        result = CommentModel.create(args, id, user_id['id'])
+        return result
